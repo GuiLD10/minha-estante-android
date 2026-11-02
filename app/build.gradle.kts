@@ -31,6 +31,8 @@ android {
     }
     buildFeatures {
         compose = true
+        // Gera BuildConfig.DEBUG, usado para inserir os livros de exemplo só em debug.
+        buildConfig = true
     }
 }
 
@@ -46,6 +48,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    implementation(libs.kotlinx.coroutines.android)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)

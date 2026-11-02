@@ -23,5 +23,9 @@ dependencies {
     implementation(projects.core.database)
     implementation(projects.core.datastore)
 
+    implementation(libs.kotlinx.coroutines.core)
+
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
 }

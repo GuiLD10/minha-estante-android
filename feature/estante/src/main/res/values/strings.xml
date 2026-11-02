@@ -1,0 +1,16 @@
+<resources>
+    <string name="estante_titulo">Minha estante</string>
+    <string name="estante_abrir_configuracoes">Abrir configurações</string>
+    <string name="estante_buscar_livros">Buscar livros</string>
+
+    <string name="estante_filtro_todos">Todos</string>
+    <string name="estante_status_quero_ler">Quero ler</string>
+    <string name="estante_status_lendo">Lendo</string>
+    <string name="estante_status_lido">Lido</string>
+
+    <string name="estante_vazia">Sua estante está vazia.\nQue tal buscar um livro para começar?</string>
+    <string name="estante_vazia_filtro">Nenhum livro com o status \"%1$s\".</string>
+
+    <string name="estante_progresso">%1$d%%</string>
+    <string name="estante_progresso_descricao">Progresso de leitura: %1$d%%</string>
+</resources>
