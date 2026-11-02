@@ -1,0 +1,8 @@
+* text=auto
+
+# Scripts de shell precisam de LF para rodar no Linux/macOS (ex.: CI)
+gradlew text eol=lf
+*.sh text eol=lf
+
+# Scripts do Windows usam CRLF
+*.bat text eol=crlf

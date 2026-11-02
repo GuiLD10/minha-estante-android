@@ -1,4 +1,4 @@
-package com.example.minhaestante.ui.theme
+package com.minhaestante.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
