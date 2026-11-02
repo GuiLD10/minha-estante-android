@@ -581,7 +581,7 @@ Cada etapa é desenvolvida em uma branch própria (`etapa/NN-nome`) e integrada 
 ## Status
 
 - [x] Etapa 1 — Setup
-- [ ] Etapa 2 — Domínio
+- [x] Etapa 2 — Domínio
 - [ ] Etapa 3 — Estante sem rede
 - [ ] Etapa 4 — Hilt
 - [ ] Etapa 5 — Busca
