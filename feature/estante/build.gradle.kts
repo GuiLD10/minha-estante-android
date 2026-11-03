@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
+    // Rotas tipadas: EstanteDestino e DetalheDestino são classes @Serializable.
+    alias(libs.plugins.kotlin.serialization)
     // Hilt: o EstanteViewModel é um @HiltViewModel.
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -44,6 +46,9 @@ dependencies {
     ksp(libs.hilt.compiler)
     // Fornece hiltViewModel() para obter ViewModels do Hilt dentro de Composables.
     implementation(libs.androidx.hilt.navigation.compose)
+
+    // Navigation Compose: composable<Destino>, NavController e SavedStateHandle.toRoute().
+    implementation(libs.androidx.navigation.compose)
 
     // Fakes, MainDispatcherRule, JUnit e coroutines-test compartilhados.
     testImplementation(projects.core.testing)

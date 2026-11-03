@@ -51,6 +51,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
+    // NavHost e NavController: o grafo de navegação fica no :app, que conhece todas as features.
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.coroutines.android)
 
     // Hilt: o :app é a raiz do grafo de dependências (@HiltAndroidApp).

@@ -69,8 +69,9 @@ internal fun LivroItem(
     }
 }
 
+/** Barra de progresso com o percentual ao lado. Usada na lista da estante e no Detalhe. */
 @Composable
-private fun BarraProgresso(percentual: Int, modifier: Modifier = Modifier) {
+internal fun BarraProgresso(percentual: Int, modifier: Modifier = Modifier) {
     val descricao = stringResource(R.string.estante_progresso_descricao, percentual)
     Row(
         modifier = modifier

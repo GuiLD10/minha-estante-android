@@ -40,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.minhaestante.core.designsystem.R as DesignSystemR
 import com.minhaestante.core.designsystem.theme.MinhaEstanteTheme
 import com.minhaestante.core.model.ResultadoBusca
 
@@ -102,7 +103,7 @@ fun BuscaScreen(
                 navigationIcon = {
                     IconButton(onClick = onVoltar) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_voltar),
+                            painter = painterResource(DesignSystemR.drawable.ic_voltar),
                             contentDescription = stringResource(R.string.busca_voltar),
                         )
                     }
