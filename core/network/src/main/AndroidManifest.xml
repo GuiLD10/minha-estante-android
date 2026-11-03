@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    A permissão de internet é declarada aqui, no módulo que realmente usa a rede.
+    Na hora do build, o "manifest merger" junta este arquivo ao manifest do :app.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+</manifest>
