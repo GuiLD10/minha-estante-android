@@ -83,7 +83,13 @@ fun Livro.comStatus(novo: StatusLeitura): Livro {
 }
 
 /** Autores separados por vírgula, ou [AUTOR_DESCONHECIDO] se não houver nenhum. */
-fun Livro.autoresFormatados(): String {
+fun Livro.autoresFormatados(): String = formatarAutores(autores)
+
+/**
+ * Regra compartilhada entre [Livro] e [ResultadoBusca]: ignora nomes em branco,
+ * junta com vírgula ou devolve [AUTOR_DESCONHECIDO].
+ */
+internal fun formatarAutores(autores: List<String>): String {
     val validos = autores.filter { it.isNotBlank() }
     return if (validos.isEmpty()) AUTOR_DESCONHECIDO else validos.joinToString(SEPARADOR_AUTORES)
 }

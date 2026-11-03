@@ -34,3 +34,6 @@ fun ResultadoBusca.paraLivro(agora: Long): Livro = Livro(
     paginaAtual = PAGINA_INICIAL,
     adicionadoEm = agora,
 )
+
+/** Mesma regra de [Livro.autoresFormatados], usada na lista de resultados da Busca. */
+fun ResultadoBusca.autoresFormatados(): String = formatarAutores(autores)
