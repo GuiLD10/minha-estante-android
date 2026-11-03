@@ -13,4 +13,23 @@
 
     <string name="estante_progresso">%1$d%%</string>
     <string name="estante_progresso_descricao">Progresso de leitura: %1$d%%</string>
+
+    <!-- Detalhe -->
+    <string name="detalhe_voltar">Voltar</string>
+    <string name="detalhe_nao_encontrado">Este livro não está mais na sua estante.</string>
+    <string name="detalhe_ano_publicacao">Publicado em %1$d</string>
+    <string name="detalhe_ano_desconhecido">Ano de publicação desconhecido</string>
+    <string name="detalhe_total_paginas">%1$d páginas</string>
+    <string name="detalhe_total_paginas_desconhecido">Total de páginas desconhecido</string>
+    <string name="detalhe_status">Status</string>
+    <string name="detalhe_progresso">Progresso</string>
+    <string name="detalhe_pagina_de_total">Página %1$d de %2$d</string>
+    <string name="detalhe_pagina_atual">Página atual: %1$d</string>
+    <string name="detalhe_campo_pagina">Página atual</string>
+    <string name="detalhe_salvar">Salvar</string>
+    <string name="detalhe_remover">Remover da estante</string>
+    <string name="detalhe_remover_titulo">Remover livro?</string>
+    <string name="detalhe_remover_mensagem">"%1$s" será removido da sua estante, junto com o progresso de leitura.</string>
+    <string name="detalhe_remover_confirmar">Remover</string>
+    <string name="detalhe_remover_cancelar">Cancelar</string>
 </resources>

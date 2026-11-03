@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
+    // Rota tipada: BuscaDestino é um objeto @Serializable.
+    alias(libs.plugins.kotlin.serialization)
     // Hilt: o BuscaViewModel é um @HiltViewModel.
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
@@ -42,6 +44,7 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.navigation.compose)
 
     // Só para o ViewModel reconhecer `HttpException`: pelo CLAUDE.md, erros de rede sobem
     // do Repository até o ViewModel, que os converte em estado de erro.
