@@ -1,0 +1,76 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "3e4d76ab3f8776c7f9a6b2c03dbeeb7b",
+    "entities": [
+      {
+        "tableName": "livros",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `titulo` TEXT NOT NULL, `autores` TEXT NOT NULL, `anoPublicacao` INTEGER, `capaId` INTEGER, `totalPaginas` INTEGER, `status` TEXT NOT NULL, `paginaAtual` INTEGER NOT NULL, `adicionadoEm` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "titulo",
+            "columnName": "titulo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autores",
+            "columnName": "autores",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "anoPublicacao",
+            "columnName": "anoPublicacao",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "capaId",
+            "columnName": "capaId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "totalPaginas",
+            "columnName": "totalPaginas",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "paginaAtual",
+            "columnName": "paginaAtual",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "adicionadoEm",
+            "columnName": "adicionadoEm",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3e4d76ab3f8776c7f9a6b2c03dbeeb7b')"
+    ]
+  }
+}

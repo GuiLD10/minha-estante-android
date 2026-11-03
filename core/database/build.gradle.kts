@@ -1,5 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
+    // KSP roda o processador de anotações do Room, que gera a implementação do DAO e do Database.
+    alias(libs.plugins.ksp)
+    // Plugin do Room: configura onde exportar o esquema do banco (útil para Migrations).
+    alias(libs.plugins.room)
 }
 
 android {
@@ -17,8 +21,23 @@ android {
     }
 }
 
+room {
+    // Cada versão do banco gera um JSON com o esquema; ele vai para o Git e serve
+    // de referência (e de teste) quando escrevermos Migrations.
+    schemaDirectory("$projectDir/schemas")
+}
+
 dependencies {
     implementation(projects.core.model)
+
+    // `api` (e não `implementation`) porque BibliotecaDatabase, que é pública, estende
+    // RoomDatabase: quem usa este módulo precisa enxergar essa classe para compilar.
+    api(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
+    // Usado no TypeConverter para salvar a lista de autores como JSON.
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
 }

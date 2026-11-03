@@ -16,3 +16,6 @@ local.properties
 
 # Kotlin 2.x
 .kotlin/
+
+# Instruções locais do Claude Code (fora do repositório por enquanto)
+CLAUDE.md
