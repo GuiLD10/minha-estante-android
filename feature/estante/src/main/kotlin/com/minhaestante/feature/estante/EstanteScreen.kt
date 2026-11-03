@@ -33,9 +33,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.minhaestante.core.designsystem.theme.MinhaEstanteTheme
 import com.minhaestante.core.model.StatusLeitura
 
@@ -43,19 +42,19 @@ import com.minhaestante.core.model.StatusLeitura
  * **Route**: conecta a tela ao ViewModel. Obtém o ViewModel, coleta o estado
  * e repassa ações. Não desenha nada sozinha.
  *
- * `viewModelFactory` é temporário (etapa 3); na etapa 4 vira `hiltViewModel()`.
+ * O ViewModel é um parâmetro com valor padrão `hiltViewModel()`: em produção o Hilt
+ * o fornece; em testes de UI dá para passar outro.
  */
 @Composable
 fun EstanteRoute(
-    viewModelFactory: ViewModelProvider.Factory,
     onLivroClick: (String) -> Unit,
     onBuscarClick: () -> Unit,
     onConfiguracoesClick: () -> Unit,
     modifier: Modifier = Modifier,
+    // hiltViewModel() devolve sempre a MESMA instância enquanto a tela existir,
+    // inclusive depois de uma rotação. A factory gerada pelo Hilt só é usada na primeira vez.
+    viewModel: EstanteViewModel = hiltViewModel(),
 ) {
-    // viewModel() devolve sempre a MESMA instância enquanto a tela existir,
-    // inclusive depois de uma rotação. A factory só é usada na primeira vez.
-    val viewModel: EstanteViewModel = viewModel(factory = viewModelFactory)
 
     // Coleta o StateFlow apenas enquanto a tela está visível (pausa em segundo plano).
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()

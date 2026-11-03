@@ -12,6 +12,7 @@ import com.minhaestante.core.model.paraLivro
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
 /**
  * Implementação da estante que usa apenas o Room (offline-first).
@@ -20,8 +21,11 @@ import kotlinx.coroutines.flow.map
  * de `:core:model` (`comStatus`, `comProgresso`) e grava o resultado.
  *
  * `internal`: fora deste módulo só se conhece a interface [EstanteRepository].
+ *
+ * `@Inject constructor`: o Hilt sabe criar esta classe sozinho, pedindo um [LivroDao]
+ * (que vem do `DatabaseModule`). O `DataModule` liga esta classe à interface.
  */
-internal class OfflineFirstEstanteRepository(
+internal class OfflineFirstEstanteRepository @Inject constructor(
     private val livroDao: LivroDao,
 ) : EstanteRepository {
 

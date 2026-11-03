@@ -1,12 +1,11 @@
 package com.minhaestante.feature.estante
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.CreationExtras
 import com.minhaestante.core.data.repository.EstanteRepository
 import com.minhaestante.core.model.Livro
 import com.minhaestante.core.model.StatusLeitura
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -14,6 +13,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import javax.inject.Inject
 
 /** Estado da tela Estante. A UI só desenha o que estiver aqui. */
 sealed interface EstanteUiState {
@@ -22,7 +22,12 @@ sealed interface EstanteUiState {
     data class Vazia(val filtro: StatusLeitura?) : EstanteUiState
 }
 
-class EstanteViewModel(
+/**
+ * `@HiltViewModel` + `@Inject constructor`: o Hilt gera a factory que antes escrevíamos à mão.
+ * Ele sabe que precisa de um [EstanteRepository] e o obtém do `DataModule`.
+ */
+@HiltViewModel
+class EstanteViewModel @Inject constructor(
     private val repository: EstanteRepository,
 ) : ViewModel() {
 
@@ -56,26 +61,6 @@ class EstanteViewModel(
 
     fun selecionarFiltro(novoFiltro: StatusLeitura?) {
         filtro.value = novoFiltro
-    }
-
-    /**
-     * Factory **manual** (etapa 3, antes do Hilt).
-     *
-     * O Android é quem cria ViewModels (para mantê-los vivos na rotação), e por padrão
-     * ele só sabe chamar construtores sem parâmetros. A Factory ensina como criar
-     * um [EstanteViewModel] que recebe um [EstanteRepository].
-     */
-    class Factory(
-        private val repository: EstanteRepository,
-    ) : ViewModelProvider.Factory {
-
-        @Suppress("UNCHECKED_CAST")
-        override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
-            require(modelClass.isAssignableFrom(EstanteViewModel::class.java)) {
-                "Factory não sabe criar ${modelClass.name}"
-            }
-            return EstanteViewModel(repository) as T
-        }
     }
 
     private companion object {

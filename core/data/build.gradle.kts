@@ -1,5 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
+    // Hilt: este módulo fornece o DataModule (bindings interface → implementação).
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -24,6 +27,9 @@ dependencies {
     implementation(projects.core.datastore)
 
     implementation(libs.kotlinx.coroutines.core)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
     testImplementation(libs.mockk)
