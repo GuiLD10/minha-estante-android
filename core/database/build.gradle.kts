@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.ksp)
     // Plugin do Room: configura onde exportar o esquema do banco (útil para Migrations).
     alias(libs.plugins.room)
+    // Hilt: este módulo fornece o DatabaseModule (como criar o banco e o DAO).
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -35,6 +37,9 @@ dependencies {
     api(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     // Usado no TypeConverter para salvar a lista de autores como JSON.
     implementation(libs.kotlinx.serialization.json)

@@ -6,23 +6,22 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.minhaestante.core.designsystem.theme.MinhaEstanteTheme
 import com.minhaestante.feature.estante.EstanteRoute
-import com.minhaestante.feature.estante.EstanteViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+/**
+ * `@AndroidEntryPoint`: marca a Activity como um ponto de entrada do Hilt. Sem isso,
+ * `hiltViewModel()` não funciona dentro dos Composables desta Activity.
+ */
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        // DI manual (etapa 3): pega o repository do container da Application
-        // e entrega à factory do ViewModel. Na etapa 4 isso some com o Hilt.
-        val dataContainer = (application as MinhaEstanteApp).dataContainer
-        val estanteViewModelFactory = EstanteViewModel.Factory(dataContainer.estanteRepository)
-
         setContent {
             MinhaEstanteTheme {
                 EstanteRoute(
-                    viewModelFactory = estanteViewModelFactory,
                     // As ações abaixo serão ligadas nas próximas etapas:
                     onLivroClick = {},        // Detalhe → etapa 6
                     onBuscarClick = {},       // Busca → etapa 5

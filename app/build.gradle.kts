@@ -1,6 +1,11 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    // KSP roda o compilador do Hilt, que gera o código de injeção em tempo de compilação.
+    alias(libs.plugins.ksp)
+    // Plugin do Hilt: faz a "mágica" de @HiltAndroidApp / @AndroidEntryPoint
+    // (troca a superclasse da Application/Activity por uma classe gerada).
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -49,6 +54,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(libs.kotlinx.coroutines.android)
+
+    // Hilt: o :app é a raiz do grafo de dependências (@HiltAndroidApp).
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)

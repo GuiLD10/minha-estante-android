@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.compose)
+    // Hilt: o EstanteViewModel é um @HiltViewModel.
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -36,6 +39,11 @@ dependencies {
     // ViewModel + viewModel() no Compose e collectAsStateWithLifecycle()
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+    // Fornece hiltViewModel() para obter ViewModels do Hilt dentro de Composables.
+    implementation(libs.androidx.hilt.navigation.compose)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
