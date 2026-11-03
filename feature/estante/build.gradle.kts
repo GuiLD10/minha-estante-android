@@ -45,7 +45,7 @@ dependencies {
     // Fornece hiltViewModel() para obter ViewModels do Hilt dentro de Composables.
     implementation(libs.androidx.hilt.navigation.compose)
 
-    testImplementation(libs.junit)
-    testImplementation(libs.kotlinx.coroutines.test)
+    // Fakes, MainDispatcherRule, JUnit e coroutines-test compartilhados.
+    testImplementation(projects.core.testing)
     testImplementation(libs.turbine)
 }

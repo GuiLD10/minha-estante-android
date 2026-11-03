@@ -1,4 +1,4 @@
-package com.minhaestante.feature.estante
+package com.minhaestante.core.testing
 
 import com.minhaestante.core.data.repository.EstanteRepository
 import com.minhaestante.core.model.Livro
@@ -9,7 +9,6 @@ import com.minhaestante.core.model.comStatus
 import com.minhaestante.core.model.paraLivro
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 
 /**
@@ -17,10 +16,18 @@ import kotlinx.coroutines.flow.map
  *
  * Usa um `MutableSharedFlow` sem valor inicial: nada é emitido até o teste chamar
  * [emitir]. Isso permite verificar o estado `Loading` antes de os dados "chegarem".
+ *
+ * @param livrosIniciais se informado, a estante já começa com esses livros
+ * (útil quando o teste não se importa com o estado de carregamento).
  */
-class FakeEstanteRepository : EstanteRepository {
+class FakeEstanteRepository(livrosIniciais: List<Livro>? = null) : EstanteRepository {
 
     private val livros = MutableSharedFlow<List<Livro>>(replay = 1)
+
+    init {
+        // tryEmit não suspende; com replay = 1 sempre há espaço para o primeiro valor.
+        livrosIniciais?.let { livros.tryEmit(it) }
+    }
 
     suspend fun emitir(lista: List<Livro>) = livros.emit(lista)
 

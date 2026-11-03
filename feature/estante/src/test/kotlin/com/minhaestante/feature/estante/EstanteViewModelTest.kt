@@ -2,6 +2,9 @@ package com.minhaestante.feature.estante
 
 import app.cash.turbine.test
 import com.minhaestante.core.model.StatusLeitura
+import com.minhaestante.core.testing.FakeEstanteRepository
+import com.minhaestante.core.testing.MainDispatcherRule
+import com.minhaestante.core.testing.livroTeste
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before

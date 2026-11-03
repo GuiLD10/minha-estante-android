@@ -1,6 +1,10 @@
 plugins {
     alias(libs.plugins.android.library)
+    // Gera os serializers dos DTOs (@Serializable) em tempo de compilação.
     alias(libs.plugins.kotlin.serialization)
+    // Hilt: este módulo fornece o NetworkModule (OkHttp, Retrofit e a API).
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -29,7 +33,14 @@ android {
 dependencies {
     implementation(projects.core.model)
 
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.kotlinx.serialization)
+    implementation(libs.okhttp)
+    implementation(libs.okhttp.logging.interceptor)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
 
     testImplementation(libs.junit)
 }

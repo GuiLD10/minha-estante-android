@@ -36,8 +36,6 @@ android {
     }
     buildFeatures {
         compose = true
-        // Gera BuildConfig.DEBUG, usado para inserir os livros de exemplo só em debug.
-        buildConfig = true
     }
 }
 

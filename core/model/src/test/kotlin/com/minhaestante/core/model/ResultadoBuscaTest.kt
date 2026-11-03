@@ -50,4 +50,16 @@ class ResultadoBuscaTest {
         assertNull(livro.capaId)
         assertNull(livro.totalPaginas)
     }
+
+    @Test
+    fun `quando ha varios autores, entao os junta com virgula`() {
+        val comDois = resultado.copy(autores = listOf("Neil Gaiman", "Terry Pratchett"))
+
+        assertEquals("Neil Gaiman, Terry Pratchett", comDois.autoresFormatados())
+    }
+
+    @Test
+    fun `quando nao ha autores, entao retorna autor desconhecido`() {
+        assertEquals(AUTOR_DESCONHECIDO, resultado.copy(autores = emptyList()).autoresFormatados())
+    }
 }

@@ -1,4 +1,4 @@
-package com.minhaestante.feature.estante
+package com.minhaestante.core.testing
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
