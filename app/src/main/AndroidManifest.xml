@@ -24,6 +24,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--
+            Remove só o inicializador automático do WorkManager (o App Startup continua para as
+            outras bibliotecas). Quem configura o WorkManager agora é o MinhaEstanteApp, com a
+            HiltWorkerFactory. tools:node="merge" mescla com o provider declarado pelas libs;
+            tools:node="remove" tira a entrada do WorkManager do manifesto final.
+        -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
     </application>
 
 </manifest>

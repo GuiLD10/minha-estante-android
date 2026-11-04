@@ -3,6 +3,7 @@ package com.minhaestante.feature.configuracoes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.minhaestante.core.data.repository.PreferenciasRepository
+import com.minhaestante.core.lembrete.AgendadorLembrete
 import com.minhaestante.core.model.TemaApp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
@@ -31,6 +32,7 @@ sealed interface ConfiguracoesUiState {
 @HiltViewModel
 class ConfiguracoesViewModel @Inject constructor(
     private val preferencias: PreferenciasRepository,
+    private val agendador: AgendadorLembrete,
 ) : ViewModel() {
 
     /** `combine` junta as duas preferências: emite sempre que qualquer uma delas muda. */
@@ -55,9 +57,21 @@ class ConfiguracoesViewModel @Inject constructor(
         viewModelScope.launch { preferencias.definirTema(tema) }
     }
 
-    /** O agendamento do lembrete com WorkManager entra na etapa 8; por ora só salvamos a preferência. */
+    /**
+     * Salva a preferência **e** agenda/cancela o trabalho no WorkManager. A preferência continua
+     * necessária: o Worker a confere antes de notificar (proteção extra caso um agendamento
+     * antigo ainda dispare depois de o usuário desligar o lembrete).
+     */
     fun definirLembreteAtivo(ativo: Boolean) {
-        viewModelScope.launch { preferencias.definirLembreteAtivo(ativo) }
+        viewModelScope.launch {
+            preferencias.definirLembreteAtivo(ativo)
+            if (ativo) agendador.agendar() else agendador.cancelar()
+        }
+    }
+
+    /** Só para builds debug: roda o lembrete agora, sem esperar as 20h. */
+    fun dispararLembreteAgora() {
+        agendador.dispararAgora()
     }
 
     private companion object {

@@ -62,6 +62,8 @@ dependencies {
     // Hilt: o :app é a raiz do grafo de dependências (@HiltAndroidApp).
     implementation(libs.hilt.android)
     ksp(libs.hilt.compiler)
+    // HiltWorkerFactory: permite ao WorkManager criar Workers com dependências injetadas.
+    implementation(libs.androidx.hilt.work)
 
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)

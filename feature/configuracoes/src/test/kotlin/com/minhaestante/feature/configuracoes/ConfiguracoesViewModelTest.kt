@@ -2,11 +2,14 @@ package com.minhaestante.feature.configuracoes
 
 import app.cash.turbine.test
 import com.minhaestante.core.data.repository.PreferenciasRepository
+import com.minhaestante.core.lembrete.AgendadorLembrete
 import com.minhaestante.core.model.TemaApp
 import com.minhaestante.core.testing.MainDispatcherRule
 import io.mockk.coVerify
+import io.mockk.coVerifyOrder
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.test.runTest
@@ -31,7 +34,9 @@ class ConfiguracoesViewModelTest {
         every { tema } returns this@ConfiguracoesViewModelTest.tema
         every { lembreteAtivo } returns this@ConfiguracoesViewModelTest.lembreteAtivo
     }
-    private val viewModel = ConfiguracoesViewModel(preferencias)
+    /** `relaxed = true`: todas as funções do mock simplesmente não fazem nada. */
+    private val agendador = mockk<AgendadorLembrete>(relaxed = true)
+    private val viewModel = ConfiguracoesViewModel(preferencias, agendador)
 
     @Test
     fun `quando as preferencias ainda nao chegaram, entao o estado e Carregando`() = runTest {
@@ -41,7 +46,7 @@ class ConfiguracoesViewModelTest {
             every { lembreteAtivo } returns MutableSharedFlow()
         }
 
-        ConfiguracoesViewModel(semResposta).uiState.test {
+        ConfiguracoesViewModel(semResposta, agendador).uiState.test {
             assertEquals(ConfiguracoesUiState.Carregando, awaitItem())
         }
     }
@@ -78,16 +83,39 @@ class ConfiguracoesViewModelTest {
     }
 
     @Test
-    fun `quando ativa o lembrete, entao grava no repositorio`() = runTest {
+    fun `quando ativa o lembrete, entao grava no repositorio e agenda o trabalho`() = runTest {
         viewModel.definirLembreteAtivo(true)
 
-        coVerify { preferencias.definirLembreteAtivo(true) }
+        coVerifyOrder {
+            preferencias.definirLembreteAtivo(true)
+            agendador.agendar()
+        }
+        verify(exactly = 0) { agendador.cancelar() }
     }
 
     @Test
-    fun `quando desativa o lembrete, entao grava no repositorio`() = runTest {
+    fun `quando desativa o lembrete, entao grava no repositorio e cancela o trabalho`() = runTest {
         viewModel.definirLembreteAtivo(false)
 
-        coVerify { preferencias.definirLembreteAtivo(false) }
+        coVerifyOrder {
+            preferencias.definirLembreteAtivo(false)
+            agendador.cancelar()
+        }
+        verify(exactly = 0) { agendador.agendar() }
+    }
+
+    @Test
+    fun `quando dispara o lembrete agora, entao pede a execucao imediata ao agendador`() {
+        viewModel.dispararLembreteAgora()
+
+        verify { agendador.dispararAgora() }
+    }
+
+    @Test
+    fun `quando define o tema, entao nao mexe no agendamento`() = runTest {
+        viewModel.definirTema(TemaApp.CLARO)
+
+        verify(exactly = 0) { agendador.agendar() }
+        verify(exactly = 0) { agendador.cancelar() }
     }
 }

@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.IdRes
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -96,6 +97,13 @@ class ConfiguracoesFragment : Fragment() {
         // quando o *código* muda `isChecked`, o que pediria permissão sem o usuário ter tocado.
         binding.switchLembrete.setOnClickListener {
             aoAlternarLembrete(binding.switchLembrete.isChecked)
+        }
+
+        // Botão de teste: existe no layout, mas só aparece em builds debug.
+        binding.botaoDispararLembrete.isVisible = BuildConfig.DEBUG
+        binding.botaoDispararLembrete.setOnClickListener {
+            viewModel.dispararLembreteAgora()
+            Snackbar.make(binding.root, R.string.configuracoes_lembrete_disparado, Snackbar.LENGTH_SHORT).show()
         }
     }
 

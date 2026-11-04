@@ -104,5 +104,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/switch_lembrete" />
 
+        <!-- Só em debug (o Fragment controla a visibilidade): dispara o Worker na hora. -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/botao_disparar_lembrete"
+            style="?attr/materialButtonOutlinedStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/configuracoes_espaco_grande"
+            android:text="@string/configuracoes_disparar_lembrete"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/descricao_lembrete"
+            tools:visibility="visible" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
