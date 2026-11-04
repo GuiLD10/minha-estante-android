@@ -1,5 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
+    // Hilt: a Activity e o Fragment são @AndroidEntryPoint e o ViewModel é @HiltViewModel.
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -19,6 +22,8 @@ android {
     buildFeatures {
         // Gera classes de binding para os layouts XML (ex.: FragmentConfiguracoesBinding).
         viewBinding = true
+        // BuildConfig.DEBUG: liga os logs de ciclo de vida só em builds de debug.
+        buildConfig = true
     }
 }
 
@@ -28,10 +33,22 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.lembrete)
 
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    // fragment-ktx traz os delegates `by viewModels()` / `by activityViewModels()`.
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.material)
 
-    testImplementation(libs.junit)
+    // viewModelScope, lifecycleScope e repeatOnLifecycle.
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // Fakes, MainDispatcherRule, JUnit e coroutines-test compartilhados.
+    testImplementation(projects.core.testing)
+    testImplementation(libs.mockk)
+    testImplementation(libs.turbine)
 }

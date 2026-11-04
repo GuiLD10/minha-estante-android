@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="configuracoes_margem">16dp</dimen>
+    <dimen name="configuracoes_espaco_pequeno">8dp</dimen>
+    <dimen name="configuracoes_espaco_grande">24dp</dimen>
+</resources>

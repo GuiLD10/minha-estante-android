@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Estrutura da Activity: uma toolbar no topo e, abaixo, o container onde o Fragment vive.
+    Cada android:id vira um campo no binding: "container_fragment" → binding.containerFragment.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/raiz"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- wrap_content + minHeight: o padding do inset da status bar aumenta a toolbar em vez de espremê-la. -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationContentDescription="@string/configuracoes_voltar"
+        app:navigationIcon="@drawable/ic_voltar"
+        app:navigationIconTint="?attr/colorOnSurface"
+        app:title="@string/configuracoes_titulo" />
+
+    <!--
+        android:name: o FragmentManager cria o Fragment sozinho. Após uma rotação ele restaura
+        o Fragment existente em vez de criar outro, então não precisamos de uma FragmentTransaction manual.
+    -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/container_fragment"
+        android:name="com.minhaestante.feature.configuracoes.ConfiguracoesFragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+</LinearLayout>
