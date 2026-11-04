@@ -11,4 +11,6 @@
     <string name="configuracoes_lembrete">Lembrete diário de leitura</string>
     <string name="configuracoes_lembrete_descricao">Uma notificação às 20h quando houver livros em andamento.</string>
     <string name="configuracoes_permissao_negada">Sem permissão para notificações, o lembrete não pode ser ativado.</string>
+    <string name="configuracoes_disparar_lembrete">Disparar lembrete agora (debug)</string>
+    <string name="configuracoes_lembrete_disparado">Lembrete enviado ao WorkManager</string>
 </resources>
