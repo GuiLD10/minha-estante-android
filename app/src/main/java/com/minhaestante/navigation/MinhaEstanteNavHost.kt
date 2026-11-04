@@ -2,11 +2,13 @@ package com.minhaestante.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.minhaestante.feature.busca.navigation.navegarParaBusca
 import com.minhaestante.feature.busca.navigation.telaBusca
+import com.minhaestante.feature.configuracoes.ConfiguracoesActivity
 import com.minhaestante.feature.estante.navigation.EstanteDestino
 import com.minhaestante.feature.estante.navigation.navegarParaDetalhe
 import com.minhaestante.feature.estante.navigation.telaDetalhe
@@ -27,6 +29,8 @@ fun MinhaEstanteNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
 ) {
+    val context = LocalContext.current
+
     NavHost(
         navController = navController,
         startDestination = EstanteDestino,
@@ -35,7 +39,10 @@ fun MinhaEstanteNavHost(
         telaEstante(
             onLivroClick = navController::navegarParaDetalhe,
             onBuscarClick = navController::navegarParaBusca,
-            onConfiguracoesClick = {}, // Configurações (Activity com XML) → etapa 7
+            // Configurações não é um destino do NavHost: é outra Activity (em XML), aberta por Intent.
+            onConfiguracoesClick = {
+                context.startActivity(ConfiguracoesActivity.criarIntent(context))
+            },
         )
         telaBusca(onVoltar = navController::popBackStack)
         telaDetalhe(onVoltar = navController::popBackStack)

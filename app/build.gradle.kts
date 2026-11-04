@@ -47,9 +47,13 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.lembrete)
     implementation(projects.core.data)
+    // TemaApp: o MainViewModel lê o tema do PreferenciasRepository.
+    implementation(projects.core.model)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    // collectAsStateWithLifecycle() para observar o tema no setContent.
+    implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.activity.compose)
     // NavHost e NavController: o grafo de navegação fica no :app, que conhece todas as features.
     implementation(libs.androidx.navigation.compose)
@@ -66,7 +70,8 @@ dependencies {
     implementation(libs.androidx.compose.material3)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
-    testImplementation(libs.junit)
+    testImplementation(projects.core.testing)
+    testImplementation(libs.turbine)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

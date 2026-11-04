@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- NestedScrollView: em paisagem a tela é baixa e o conteúdo pode não caber. -->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConfiguracoesActivity">
+
+    <!--
+        ConstraintLayout: cada View se posiciona por "restrições" em relação às outras ou ao pai
+        (ex.: o topo do RadioGroup preso ao fundo do título). Mantém a hierarquia plana.
+        layout_width="0dp" significa "ocupe o espaço entre as restrições de início e fim".
+    -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/configuracoes_margem">
+
+        <TextView
+            android:id="@+id/titulo_tema"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:accessibilityHeading="true"
+            tools:targetApi="28"
+            android:text="@string/configuracoes_secao_tema"
+            android:textAppearance="?attr/textAppearanceTitleSmall"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- RadioGroup: garante que só uma opção fique marcada por vez. -->
+        <RadioGroup
+            android:id="@+id/grupo_tema"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/configuracoes_espaco_pequeno"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titulo_tema">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_sistema"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/configuracoes_tema_sistema" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_claro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/configuracoes_tema_claro" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/radio_escuro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/configuracoes_tema_escuro" />
+        </RadioGroup>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/divisor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/configuracoes_espaco_grande"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/grupo_tema" />
+
+        <TextView
+            android:id="@+id/titulo_lembrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/configuracoes_espaco_grande"
+            android:accessibilityHeading="true"
+            tools:targetApi="28"
+            android:text="@string/configuracoes_secao_lembrete"
+            android:textAppearance="?attr/textAppearanceTitleSmall"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divisor" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/switch_lembrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/configuracoes_espaco_pequeno"
+            android:text="@string/configuracoes_lembrete"
+            android:textAppearance="?attr/textAppearanceBodyLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titulo_lembrete" />
+
+        <TextView
+            android:id="@+id/descricao_lembrete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/configuracoes_lembrete_descricao"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/switch_lembrete" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

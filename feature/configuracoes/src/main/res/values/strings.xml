@@ -1,0 +1,14 @@
+<resources>
+    <string name="configuracoes_titulo">Configurações</string>
+    <string name="configuracoes_voltar">Voltar</string>
+
+    <string name="configuracoes_secao_tema">Tema</string>
+    <string name="configuracoes_tema_sistema">Padrão do sistema</string>
+    <string name="configuracoes_tema_claro">Claro</string>
+    <string name="configuracoes_tema_escuro">Escuro</string>
+
+    <string name="configuracoes_secao_lembrete">Lembrete</string>
+    <string name="configuracoes_lembrete">Lembrete diário de leitura</string>
+    <string name="configuracoes_lembrete_descricao">Uma notificação às 20h quando houver livros em andamento.</string>
+    <string name="configuracoes_permissao_negada">Sem permissão para notificações, o lembrete não pode ser ativado.</string>
+</resources>

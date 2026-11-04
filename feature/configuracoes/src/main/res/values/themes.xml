@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        Tema das Views (XML). "DayNight" escolhe claro/escuro conforme o modo noturno,
+        que a ConfiguracoesActivity controla via delegate.localNightMode.
+        NoActionBar: usamos a MaterialToolbar do layout no lugar da ActionBar padrão.
+    -->
+    <style name="Theme.MinhaEstante.Configuracoes" parent="Theme.Material3.DayNight.NoActionBar" />
+</resources>

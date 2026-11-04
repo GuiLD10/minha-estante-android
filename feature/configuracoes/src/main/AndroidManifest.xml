@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Android 13+: notificações exigem permissão em tempo de execução (pedida no ConfiguracoesFragment). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application>
+        <!-- O manifesto da biblioteca é mesclado ao do :app no build. exported=false: só o próprio app abre. -->
+        <activity
+            android:name="com.minhaestante.feature.configuracoes.ConfiguracoesActivity"
+            android:exported="false"
+            android:label="@string/configuracoes_titulo"
+            android:theme="@style/Theme.MinhaEstante.Configuracoes" />
+    </application>
+
+</manifest>
