@@ -41,8 +41,8 @@ class BuscaScreenTest {
     fun ociosoMostraOrientacaoParaDigitar() {
         abrirTela(BuscaUiState.Ocioso)
 
-        val mensagem = InstrumentationRegistry.getInstrumentation().targetContext
-            .getString(R.string.busca_ocioso, TAMANHO_MINIMO_TERMO)
+        val mensagem = InstrumentationRegistry.getInstrumentation().targetContext.resources
+            .getQuantityString(R.plurals.busca_ocioso, TAMANHO_MINIMO_TERMO, TAMANHO_MINIMO_TERMO)
         composeTestRule.onNodeWithText(mensagem).assertIsDisplayed()
     }
 
