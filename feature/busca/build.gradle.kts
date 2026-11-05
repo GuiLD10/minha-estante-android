@@ -52,4 +52,12 @@ dependencies {
 
     testImplementation(projects.core.testing)
     testImplementation(libs.turbine)
+
+    // Testes de UI (src/androidTest) com createComposeRule.
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    androidTestImplementation(libs.androidx.test.runner)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    // Registra uma Activity vazia no manifest de debug, onde o createComposeRule desenha a tela.
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }

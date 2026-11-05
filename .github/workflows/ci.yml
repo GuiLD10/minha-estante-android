@@ -1,0 +1,55 @@
+# CI: roda os testes unitários e o lint a cada push e Pull Request para a main.
+# Se algum teste falhar, o check do PR fica vermelho e o merge fica bloqueado
+# (com a regra de proteção de branch ativada no GitHub).
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Se um novo push chegar no mesmo PR/branch, cancela a execução anterior (economiza minutos).
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  testes:
+    name: Testes unitários e lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # Instala o Gradle do wrapper e guarda o cache de dependências entre execuções.
+      # O daemon pede JDK 25 (gradle/gradle-daemon-jvm.properties); o Gradle o baixa sozinho.
+      - name: Configurar Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      # testDebugUnitTest roda os testes dos módulos Android; :core:model é Kotlin/JVM puro
+      # e não tem essa task, então seus testes precisam ser chamados com `test`.
+      - name: Testes unitários e lint
+        run: ./gradlew testDebugUnitTest :core:model:test lintDebug --continue
+
+      # Em caso de falha, publica os relatórios HTML para inspecionar no GitHub.
+      - name: Publicar relatórios
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: relatorios
+          path: |
+            **/build/reports/tests/
+            **/build/reports/lint-results-*.html
+          retention-days: 7
