@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
     <string name="estante_titulo">Minha estante</string>
     <string name="estante_abrir_configuracoes">Abrir configurações</string>
     <string name="estante_buscar_livros">Buscar livros</string>
@@ -11,15 +11,22 @@
     <string name="estante_vazia">Sua estante está vazia.\nQue tal buscar um livro para começar?</string>
     <string name="estante_vazia_filtro">Nenhum livro com o status \"%1$s\".</string>
 
+    <string name="estante_ver_detalhes">ver detalhes</string>
+
     <string name="estante_progresso">%1$d%%</string>
     <string name="estante_progresso_descricao">Progresso de leitura: %1$d%%</string>
 
     <!-- Detalhe -->
     <string name="detalhe_voltar">Voltar</string>
     <string name="detalhe_nao_encontrado">Este livro não está mais na sua estante.</string>
+    <string name="detalhe_voltar_estante">Voltar para a estante</string>
     <string name="detalhe_ano_publicacao">Publicado em %1$d</string>
     <string name="detalhe_ano_desconhecido">Ano de publicação desconhecido</string>
-    <string name="detalhe_total_paginas">%1$d páginas</string>
+    <plurals name="detalhe_total_paginas">
+        <item quantity="one">%1$d página</item>
+        <item quantity="many">%1$d páginas</item>
+        <item quantity="other">%1$d páginas</item>
+    </plurals>
     <string name="detalhe_total_paginas_desconhecido">Total de páginas desconhecido</string>
     <string name="detalhe_status">Status</string>
     <string name="detalhe_progresso">Progresso</string>

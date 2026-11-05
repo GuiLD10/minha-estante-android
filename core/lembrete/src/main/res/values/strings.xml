@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
     <string name="lembrete_canal_nome">Lembrete de leitura</string>
     <string name="lembrete_canal_descricao">Lembrete diário para continuar os livros em andamento.</string>
     <string name="lembrete_titulo">Hora da leitura</string>
@@ -6,6 +6,7 @@
     <!-- plurals: o Android escolhe a forma certa pela quantidade (regras de cada idioma). -->
     <plurals name="lembrete_texto_varios_livros">
         <item quantity="one">Você tem %1$d livro em andamento</item>
+        <item quantity="many">Você tem %1$d livros em andamento</item>
         <item quantity="other">Você tem %1$d livros em andamento</item>
     </plurals>
 </resources>

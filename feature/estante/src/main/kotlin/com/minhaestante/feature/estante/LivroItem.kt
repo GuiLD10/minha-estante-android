@@ -39,7 +39,8 @@ internal fun LivroItem(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
+            // onClickLabel: o TalkBack anuncia "toque duas vezes para ver detalhes".
+            .clickable(onClickLabel = stringResource(R.string.estante_ver_detalhes), onClick = onClick),
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(

@@ -1,10 +1,14 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
     <string name="busca_titulo">Buscar livros</string>
     <string name="busca_voltar">Voltar</string>
     <string name="busca_campo_rotulo">Título ou autor</string>
     <string name="busca_limpar">Limpar busca</string>
 
-    <string name="busca_ocioso">Digite pelo menos %1$d letras para buscar.</string>
+    <plurals name="busca_ocioso">
+        <item quantity="one">Digite pelo menos %1$d letra para buscar.</item>
+        <item quantity="many">Digite pelo menos %1$d letras para buscar.</item>
+        <item quantity="other">Digite pelo menos %1$d letras para buscar.</item>
+    </plurals>
     <string name="busca_sem_resultados">Nenhum livro encontrado para essa busca.</string>
     <string name="busca_erro_sem_conexao">Sem conexão com a internet</string>
     <string name="busca_erro_servidor">Erro no servidor (%1$d)</string>

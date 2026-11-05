@@ -43,7 +43,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -124,7 +127,7 @@ fun DetalheScreen(
         val conteudoModifier = Modifier.padding(innerPadding)
         when (uiState) {
             DetalheUiState.Loading -> Carregando(conteudoModifier)
-            DetalheUiState.NaoEncontrado -> NaoEncontrado(conteudoModifier)
+            DetalheUiState.NaoEncontrado -> NaoEncontrado(onVoltar = onVoltar, modifier = conteudoModifier)
             is DetalheUiState.Success -> DetalheLivro(
                 livro = uiState.livro,
                 onStatusSelecionado = onStatusSelecionado,
@@ -183,7 +186,12 @@ private fun DetalheLivro(
 @Composable
 private fun Cabecalho(livro: Livro, modifier: Modifier = Modifier) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(4.dp)) {
-        Text(text = livro.titulo, style = MaterialTheme.typography.headlineSmall)
+        // heading(): leitores de tela (TalkBack) permitem pular direto entre títulos.
+        Text(
+            text = livro.titulo,
+            style = MaterialTheme.typography.headlineSmall,
+            modifier = Modifier.semantics { heading() },
+        )
         Text(
             text = livro.autoresFormatados(),
             style = MaterialTheme.typography.titleMedium,
@@ -197,11 +205,20 @@ private fun Cabecalho(livro: Livro, modifier: Modifier = Modifier) {
         )
         Text(
             text = livro.totalPaginas
-                ?.let { stringResource(R.string.detalhe_total_paginas, it) }
+                ?.let { pluralStringResource(R.plurals.detalhe_total_paginas, it, it) }
                 ?: stringResource(R.string.detalhe_total_paginas_desconhecido),
             style = MaterialTheme.typography.bodyMedium,
         )
     }
+}
+
+@Composable
+private fun TituloSecao(texto: String, modifier: Modifier = Modifier) {
+    Text(
+        text = texto,
+        style = MaterialTheme.typography.titleSmall,
+        modifier = modifier.semantics { heading() },
+    )
 }
 
 /** Segmented button: escolha única entre os três status. */
@@ -213,7 +230,7 @@ private fun SecaoStatus(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(text = stringResource(R.string.detalhe_status), style = MaterialTheme.typography.titleSmall)
+        TituloSecao(texto = stringResource(R.string.detalhe_status))
         val opcoes = StatusLeitura.entries
         SingleChoiceSegmentedButtonRow(modifier = Modifier.fillMaxWidth()) {
             opcoes.forEachIndexed { indice, status ->
@@ -236,7 +253,7 @@ private fun SecaoProgresso(
     modifier: Modifier = Modifier,
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        Text(text = stringResource(R.string.detalhe_progresso), style = MaterialTheme.typography.titleSmall)
+        TituloSecao(texto = stringResource(R.string.detalhe_progresso))
 
         val total = livro.totalPaginas
         val percentual = livro.progressoPercentual()
@@ -322,14 +339,25 @@ private fun ConfirmarRemocao(
     )
 }
 
+/** Estado vazio: além da mensagem, oferece um caminho de volta (não só a seta da barra). */
 @Composable
-private fun NaoEncontrado(modifier: Modifier = Modifier) {
-    Box(modifier = modifier.fillMaxSize().padding(32.dp), contentAlignment = Alignment.Center) {
+private fun NaoEncontrado(onVoltar: () -> Unit, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(32.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ) {
         Text(
             text = stringResource(R.string.detalhe_nao_encontrado),
             style = MaterialTheme.typography.bodyLarge,
             textAlign = TextAlign.Center,
         )
+        Spacer(modifier = Modifier.height(16.dp))
+        Button(onClick = onVoltar) {
+            Text(stringResource(R.string.detalhe_voltar_estante))
+        }
     }
 }
 

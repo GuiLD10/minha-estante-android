@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="pt">
     <string name="configuracoes_titulo">Configurações</string>
     <string name="configuracoes_voltar">Voltar</string>
 
